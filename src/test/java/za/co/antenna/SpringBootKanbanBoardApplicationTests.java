@@ -1,4 +1,4 @@
-package za.co.kanban;
+package za.co.antenna;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
