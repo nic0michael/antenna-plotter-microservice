@@ -1,6 +1,6 @@
-CREATE DATABASE kanban_board;
+CREATE DATABASE antennad;
 
-USE kanban_board;				
+USE antenna;				
 
 -- SHOW CREATE TABLE `audit`;
 DROP TABLE IF EXISTS audit;
@@ -56,6 +56,26 @@ CREATE TABLE `antenna_gain_data` (
   PRIMARY KEY (`data_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
 
+
+
+-- SHOW CREATE TABLE `antenna_gain_data_staging`;
+DROP TABLE IF EXISTS antenna_gain_data_staging;
+CREATE TABLE `antenna_gain_data_staging` (
+  `data_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `antenna_code` varchar(255) DEFAULT NULL,
+  `base_antenna` varchar(255) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `frequency` double DEFAULT NULL,
+  `is_active` varchar(255) DEFAULT NULL,
+  `is_base_antenna` varchar(255) DEFAULT NULL,
+  `measurement_type` varchar(255) DEFAULT NULL,
+  `measurement_value` double DEFAULT NULL,
+  `id` bigint(20) NOT NULL,
+  `antenna_data_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`data_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+
 -- SHOW CREATE TABLE `antenna_polar_data`;
 DROP TABLE IF EXISTS antenna_polar_data;
 CREATE TABLE `antenna_polar_data` (
@@ -74,9 +94,48 @@ CREATE TABLE `antenna_polar_data` (
   PRIMARY KEY (`data_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+ 
+
+-- SHOW CREATE TABLE `antenna_polar_data_staging`;
+DROP TABLE IF EXISTS antenna_polar_data_staging;
+CREATE TABLE `antenna_polar_data_staging` (
+  `data_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `angle` double DEFAULT NULL,
+  `antenna_code` varchar(255) DEFAULT NULL,
+  `base_antenna` varchar(255) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `is_active` varchar(255) DEFAULT NULL,
+  `is_base_antenna` varchar(255) DEFAULT NULL,
+  `measurement_type` varchar(255) DEFAULT NULL,
+  `measurement_value` double DEFAULT NULL,
+  `id` bigint(20) NOT NULL,
+  `antenna_data_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`data_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 -- SHOW CREATE TABLE `antenna_vswr_data`;
 DROP TABLE IF EXISTS antenna_vswr_data;
 CREATE TABLE `antenna_vswr_data` (
+  `data_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `antenna_code` varchar(255) DEFAULT NULL,
+  `base_antenna` varchar(255) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `frequency` double DEFAULT NULL,
+  `is_active` varchar(255) DEFAULT NULL,
+  `is_base_antenna` varchar(255) DEFAULT NULL,
+  `measurement_type` varchar(255) DEFAULT NULL,
+  `measurement_value` double DEFAULT NULL,
+  `id` bigint(20) NOT NULL,
+  `antenna_data_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`data_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+
+-- SHOW CREATE TABLE `antenna_vswr_data_staging`;
+DROP TABLE IF EXISTS antenna_vswr_data_staging;
+CREATE TABLE `antenna_vswr_data_staging` (
   `data_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `antenna_code` varchar(255) DEFAULT NULL,
   `base_antenna` varchar(255) DEFAULT NULL,

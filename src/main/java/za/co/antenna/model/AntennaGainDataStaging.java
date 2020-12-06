@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table(name = "antenna_gain_data")
+@Table(name = "antenna_gain_data_staging")
 public class AntennaGainDataStaging {
 
 	@Id
