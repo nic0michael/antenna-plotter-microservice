@@ -5,16 +5,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+// SpringBootKanbanBoardApplication
+
+
 @SpringBootApplication
-public class SpringBootKanbanBoardApplication extends SpringBootServletInitializer{
+public class AntennaPlotterApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootKanbanBoardApplication.class, args);
+		SpringApplication.run(AntennaPlotterApplication.class, args);
 	}
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(SpringBootKanbanBoardApplication.class);
+		return builder.sources(AntennaPlotterApplication.class);
 	}
 	
 
