@@ -17,14 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.config.Task;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import za.co.antenna.dtos.CustomerPersistRequest;
 import za.co.antenna.dtos.EmployeePersistRequest;
-import za.co.antenna.dtos.EmployeeTeamPersistRequest;
-import za.co.antenna.dtos.EpicPersistRequest;
-import za.co.antenna.dtos.SubtaskPersistRequest;
-import za.co.antenna.dtos.TaskPersistRequest;
-import za.co.antenna.dtos.TeamPersistRequest;
-import za.co.antenna.dtos.UserStoryPersistRequest;
 import za.co.antenna.model.Employee;
 
 public class Utils {
