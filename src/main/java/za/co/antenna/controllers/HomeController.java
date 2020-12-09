@@ -38,21 +38,21 @@ public class HomeController {
 	@Value("${project.name}")
 	private String projectName;
 
-	@GetMapping("kanban-board")
+	@GetMapping("antenna-dashboard") //antenna-dashboard
 	public String displayHome1(Model model) {
-		return "redirect:/kanban-board/home";
+		return "redirect:/antenna-dashboard/home";
 	}
 	@GetMapping("/home")
 	public String displayHome2(Model model) {
-		return "redirect:/kanban-board/home";
+		return "redirect:/antenna-dashboard/home";
 	}
 	
 	@GetMapping
 	public String displayHome(Model model) {
-		return "redirect:/kanban-board/home";
+		return "redirect:/antenna-dashboard/home";
 	}
 
-	@GetMapping("/kanban-board/home")
+	@GetMapping("/antenna-dashboard/home")
 	public String displayHomePage(Model model) {	
 		String pattern = "yyyy-MM-dd HH:mm:ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

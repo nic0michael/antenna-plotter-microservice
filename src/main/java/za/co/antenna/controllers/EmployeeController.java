@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import za.co.antenna.dtos.EmployeePersistRequest;
-import za.co.antenna.dtos.EmployeeTeamPersistRequest;
 import za.co.antenna.model.Employee;
 import za.co.antenna.modules.EmployeeModule;
 import za.co.antenna.utils.Utils;
