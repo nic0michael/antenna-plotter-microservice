@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<script src="angmin"></script>
+<title>Internal Error</title>
+<link rel="stylesheet" href="csscrt">
+</head>
+<body>
+	<img alt="Poynting" src="imglogo">
+	<script>
+	var refresh = window.localStorage.getItem('refresh');
+	
+	if (refresh === null){
+	    window.location.reload(true);
+	    window.localStorage.setItem('refresh', "0");
+	}
+	else {
+	    window.localStorage.removeItem('refresh');
+	}
+	</script>
+	<div style="text-align:center">
+		<h1>Internal Error</h1>
+		<p>
+		<hr />
+	</div>
+</body>
+</html>

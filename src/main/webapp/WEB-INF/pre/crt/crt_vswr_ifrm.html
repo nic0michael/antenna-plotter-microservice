@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VSWR Chart</title>
+<meta http-equiv="Cache-Control"
+	content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<script src="angmin"></script>
+<script src="angrte"></script>
+<script src="angmsg"></script>
+<script src="angcr1"></script>
+<script src="angcr2"></script>
+<script src="angcr3"></script>
+<script src="angcr4"></script>
+</head>
+<body>
+	<div data-ng-app="crtVswrTemplate" style="text-align: center">
+		<img alt="Poynting" src="imglogo">
+		<h2 style="text-align: center">VSWR Line Chart</h2>
+		<hr />
+		<div data-ng-app="crtVswrTemplate"
+			data-ng-controller="VswrFrameController"
+			style=" text-align: center">
+			<h5>{{ measurementDetails }}</h5>
+			<canvas id="line"
+				class="chart chart-line"
+				data-chart-data="data"
+				data-chart-labels="labels"
+				data-chart-series="series"
+				data-chart-options="options"
+				data-chart-dataset-override="datasetOverride"
+				data-chart-click="onClick">
+			</canvas>
+			<h5>{{ responseDetails }}</h5>
+		</div>
+	</div>
+	<script>
+	angular
+		.module("crtVswrTemplate", ["chart.js"])
+		.controller("VswrFrameController",
+					function ($scope, $http) {
+					    var mt = getParameterByName('mt');
+						var ac = getParameterByName('ac');
+
+						var url = 'http://localhost:8080/measurement/vswr';
+
+						var data = {
+								measurementType : mt,
+								antennaCodes: ac
+							};
+
+						var config = {
+							headers : {
+								'Content-Type' : 'application/json'
+							}
+						}
+
+						$http.post(url, data, config)
+						.then(
+							function successCallback(response) {						
+								if (!isEmpty(response.data)) {
+									$scope.msmData = response.data;
+
+									if ($scope.msmData.responseCode === '200') {
+										console.log(response,
+												$scope.msmData.measurements.length +
+												' VSWR measurement(s) retrieved successfully.');
+										$scope.responseDetails =
+												$scope.msmData.measurements.length +
+												" VSWR measurement(s) retrieved successfully.";
+									}
+									else {
+										$scope.measurementDetails = '';
+										$scope.responseDetails = $scope.msmData.responseMessage;
+										return;
+									}
+
+									$scope.labels = [$scope.msmData.measurements[0].measurementPojos.length];
+									
+									for (i = 0; i < $scope.msmData.measurements[0].measurementPojos.length; i++) {
+										$scope.labels[i] = $scope.msmData.measurements[0].measurementPojos[i].determinant;
+									}
+									
+									$scope.data = create2DArray($scope.msmData.measurements.length);
+									$scope.series = [$scope.msmData.measurements.length];
+									
+									for (i = 0; i < $scope.msmData.measurements.length; i++) {										
+										$scope.series[i] = $scope.msmData.measurements[i].displayValue;										
+										$scope.measurementDetails = 'Last upload was on ' +
+																	$scope.msmData.lastUploadDate;
+										
+										for (j = 0; j < $scope.msmData.measurements[i].measurementPojos.length; j++) {
+											$scope.data[i][j] = $scope.msmData.measurements[i].measurementPojos[j].value;
+										}
+									}
+
+									$scope.onClick = function (points, evt) {
+									  console.log(points, evt);
+									};
+									$scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+									$scope.options = {
+										scales: {
+										    yAxes: [
+												{
+													id: 'y-axis-1',
+													type: 'linear',
+													display: true,
+													position: 'left'
+												},
+												{
+													id: 'y-axis-2',
+													type: 'linear',
+													display: true,
+													position: 'right'
+												}
+											]
+										},
+										plugins: {
+											zoom: {
+												pan: {
+													enabled: true,
+													mode: 'xy',
+													speed: 100,
+													threshold: 100
+												},
+												zoom: {
+													enabled: true,
+													drag: true,
+													mode: 'xy'
+												}
+											}
+										},
+										responsive: true,
+									    legend: {
+									        display: true
+										}
+									}
+								}
+								else {
+									console.log(response,'Could not find any VSWR measurements.');
+									$scope.responseDetails = "Could not find any VSWR measurements.";							
+								}
+							},		
+							function errorCallback(response) {
+								console.log(response,
+										'Error retrieving VSWR measurement data.');
+								$scope.responseDetails = "Error retrieving VSWR measurement data.";
+							}
+						);
+					});
+
+		function getParameterByName(name, url = window.location.href) {
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+			    			results = regex.exec(url);
+
+			if (!results) return null;
+
+			if (!results[2]) return '';
+
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+
+		function create2DArray(rows) {
+			var arr = [];
+
+			for (var i = 0; i < rows; i++) {
+     			arr[i] = [];
+  			}
+
+  			return arr;
+		}
+
+		Object.prototype.isEmpty = function(obj) {
+			if (Object.keys(obj).length == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>

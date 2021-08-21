@@ -1,0 +1,33 @@
+@charset "ISO-8859-1";
+
+body {
+	background-color: lightgrey;
+}
+
+form {
+	margin:auto;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: max-content;
+}
+
+table.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table, th, td {
+	border: 2px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+	background-color: #ffffff;
+}
